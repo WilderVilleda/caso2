@@ -24,12 +24,12 @@ app.layout = html.Div([
     #primer drop down para elegir las empresas
     html.Div(dcc.Dropdown(
     id="empresasdd",value=["2015","2016","2017","2018","2019","2020","2021","2022","2023"],clearable=False, multi=True,
-    options=[{'label':x,'value':x} for x in sorted(df.Company.unique())]
+    options=[{'label':x,'value':x} for x in sorted(df.Año.unique())]
     ),className="six columns", style={"width":"50%"},),
     
     #revisar
     html.Div(dcc.Dropdown(
-    id="cuentadd",value="Total Revenues",clearable=False,
+    id="cuentadd",value="Inflacion",clearable=False,
     options=[{'label':x,'value':x} for x in cuentas]
     ), className="six columns"), 
     ], className="row"),],className="custom-dropdown"),
@@ -59,26 +59,26 @@ app.layout = html.Div([
 
 def display_value(selected_company,selected_account):
     if len(selected_company)==0:
-        df2=df[df["Company"].isin(["2015","2016","2017","2018","2019","2020","2021","2022","2023"])]
+        df2=df[df["Año"].isin(["2015","2016","2017","2018","2019","2020","2021","2022","2023"])]
     else:
-        df2=df[df["Company"].isin(selected_company)]
+        df2=df[df["Año"].isin(selected_company)]
     
     #grafica1
-    fig= px.line(df2,color="Company",x="Periodo",markers=True,y=selected_account,
+    fig= px.line(df2,color="Año",x="Periodo",markers=True,y=selected_account,
                 width=1000,height=500)
     
     fig.update_layout(title=f'{selected_account} de {selected_company}',
-                     xaxis_title="Mes",)
+                     xaxis_title="Meses",)
     fig.update_traces(line=dict(width=2))
     
     #grafica 2
-    fig2=px.box(df2,color="Company",x="Company",y=selected_account,
+    fig2=px.box(df2,color="Año",x="Año",y=selected_account,
                width=1000,height=500)
     fig2.update_layout(title=f'{selected_account} de {selected_company}',
                       )
     
     #modificar data frame para poder hacerlo tabla
-    df_reshaped = df2.pivot(index='Company', columns='Periodo', values=selected_account)
+    df_reshaped = df2.pivot(index='Año', columns='Periodo', values=selected_account)
     df_reshaped_2 = df_reshaped.reset_index()
 
     #tabla
