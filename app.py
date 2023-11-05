@@ -24,13 +24,13 @@ app.layout = html.Div([
     #primer drop down para elegir las empresas
     html.Div(dcc.Dropdown(
     id="empresasdd",value=["2015","2016","2017","2018","2019","2020","2021","2022","2023"],clearable=False, multi=True,
-    options=[{'label':x,'value':x} for x in sorted(df.Año.unique())]
+    options=[{'value':x,'value':x} for x in sorted(df.Año.unique())]
     ),className="six columns", style={"width":"50%"},),
     
     #revisar
     html.Div(dcc.Dropdown(
     id="cuentadd",value="Inflacion",clearable=False,
-    options=[{'label':x,'value':x} for x in cuentas]
+    options=[{'value':x,'value':x} for x in cuentas]
     ), className="six columns"), 
     ], className="row"),],className="custom-dropdown"),
     
