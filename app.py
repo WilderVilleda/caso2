@@ -7,7 +7,7 @@ import plotly.express as px
 import pandas as pd
 import dash_bootstrap_components as dbc
 
-df= pd.read_excel("imm01.xlsx")
+df= pd.read_csv("imm01.csv")
 
 #construir dashboard
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
