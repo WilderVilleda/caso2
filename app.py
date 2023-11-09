@@ -1,16 +1,11 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.by import By
-from datetime import datetime, timedelta
-import pandas as pd
-import numpy as np
-import requests
-import plotly as pl
-import plotly.express as px
-from dash import Dash, dcc, html, dash_table, Input, Output
 import dash
+from dash import dcc
+from dash import html
 from dash import dash_table
+from dash.dependencies import Input, Output
+import plotly.express as px
+import pandas as pd
+import dash_bootstrap_components as dbc
 
 df= pd.read_excel("unificado.xlsx")
 df
