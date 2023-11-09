@@ -1,11 +1,11 @@
-import dash
-from dash import dcc
-from dash import html
-from dash import dash_table
-from dash.dependencies import Input, Output
-import plotly.express as px
 import pandas as pd
-import dash_bootstrap_components as dbc
+import numpy as np
+import requests
+import plotly as pl
+import plotly.express as px
+from dash import Dash, dcc, html, dash_table, Input, Output
+import dash
+from dash import dash_table
 
 df= pd.read_excel("unificado.xlsx")
 df
@@ -61,30 +61,30 @@ app.layout = html.Div([
 
 #definicion de la funcion
 
-def display_value(selected_company,selected_account):
-    if len(selected_company)==0:
+def display_value(selected_year,selected_account):
+    if len(selected_year)==0:
         df2=df[df["Año"].isin(["2015","2016","2017","2018","2019","2020","2021","2022","2023"])]
     else:
-        df2=df[df["Año"].isin(selected_company)]
+        df2=df[df["Año"].isin(selected_year)]
         
     
     #grafica1
     fig= px.line(df2,color="Año",x="Mes",markers=True,y=selected_account,
                 width=1000,height=500)
     
-    fig.update_layout(title=f'{selected_account} de {selected_company}',
+    fig.update_layout(title=f'{selected_account} de {selected_year}',
                      xaxis_title="Meses",)
     fig.update_traces(line=dict(width=2))
     
     #grafica 2
     fig2=px.box(df2,color="Año",x="Año",y=selected_account,
                width=1000,height=500)
-    fig2.update_layout(title=f'{selected_account} de {selected_company}',
+    fig2.update_layout(title=f'{selected_account} de {selected_year}',
                       )
     
     #grafica 3
     fig3= px.pie(df2, names="Año", values=selected_account, width=1000, height=500)
-    fig3.update_traces(title=f'Representación anual de la {selected_account} total del periodo {selected_company}')
+    fig3.update_traces(title=f'Representación anual de la {selected_account} total del periodo {selected_year}')
     
     #modificar data frame para poder hacerlo tabla
     df_reshaped = df2.pivot(index='Año', columns='Mes', values=selected_account)
@@ -102,4 +102,4 @@ def display_value(selected_company,selected_account):
 #setear server y correr:
 
 if __name__ == '__main__':
-    app.run_server(debug=False,host="0.0.0.0",port=1000)
+    app.run_server(debug=False,host="0.0.0.0",port=10000)
